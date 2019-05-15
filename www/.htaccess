@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteBase /
+
+RewriteRule ^getblock$ /api/getblock.php [L]
+RewriteRule ^getminingblock$ /api/getminingblock.php [L]
+RewriteRule ^submitminingsolution$ /api/submitminingsolution.php [L]
