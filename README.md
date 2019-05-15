@@ -1,7 +1,8 @@
 # Ixian-Pool
 
 ## About Ixian Pool
-Mining pool implementation for the Ixian cryptocurrency. Discover Ixian in the main repository here https://github.com/ProjectIxian
+Mining pool implementation for the Ixian cryptocurrency. 
+Discover Ixian in the main repository here: https://github.com/ProjectIxian
 
 ## Pool Repository
 
@@ -27,6 +28,10 @@ Instructions coming soon
 ## Usage
 
 Instructions coming soon
+
+## License Mentions
+
+Ixian Pool uses the free AdminLTE bootstrap template, which is licensed under the MIT license. More information can be found here: https://adminlte.io/
 
 ## Get in touch / Contributing
 
