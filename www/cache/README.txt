@@ -1,0 +1,1 @@
+This cache folder temporarly stores block data fetched from the DLT node.

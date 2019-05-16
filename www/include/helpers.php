@@ -64,7 +64,7 @@ function calculateRewardForBlock($blockNum)
         $pow_reward = ((3153600 * 9) + (1051200 * 2))/2;
     }
 
-    $pow_reward = ($pow_reward/2 + 10000); // Divide by 2 (assuming 50% block coverage) + add inital 10 IXI block reward + add the full amount of 0s to cover 
+    $pow_reward = ($pow_reward/2 + 10000); // Divide by 2 (assuming 50% block coverage) + add inital 10 IXI block reward
     return $pow_reward / 1000;
 }
 
