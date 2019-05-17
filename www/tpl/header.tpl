@@ -65,8 +65,8 @@
           </form>
             
           <ul class="nav navbar-nav">
-
-            <li><a target="_blank" href="https://www.ixian.io/?page=downloads">Downloads </a></li>
+            <li><a href="?p=miners">Miners</a></li>
+            <li><a target="_blank" href="https://www.ixian.io/?page=downloads">Downloads</a></li>
             <li><a target="_blank" href="https://explorer.ixian.io">Explorer</a></li>
             <li><a target="_blank" href="https://ixian.io">Ixian.io</a></li>
               

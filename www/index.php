@@ -14,7 +14,7 @@ if(isset($_GET['p']))
 {
     $new_page = $_GET['p'];
     
-    if($new_page === 'address' )
+    if($new_page === 'address' || $new_page === 'miners')
     {
         $current_page = $new_page;
     }
