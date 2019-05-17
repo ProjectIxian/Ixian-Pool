@@ -56,7 +56,7 @@ db_fetch("INSERT INTO miners SET address=:id, shares=shares+:sh, updated=CURRENT
         );
 
 
-$res = file_get_contents($dlt_host."/submitminingsolution?nonce=$nonce&blocknum=$blocknum", false, $context);
+$res = file_get_contents($dlt_host."/submitminingsolution?nonce=$nonce&blocknum=$blocknum");
 $data = json_decode($res, true);
 
 if(isset($data["error"]) || $data["result"] == "") {
