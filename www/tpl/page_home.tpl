@@ -8,9 +8,9 @@
     ?>
     
     <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-th"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-th"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Block Height</span>
@@ -18,23 +18,10 @@
                 </div>
             </div>      
         </div>
- 
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-bar-chart"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Difficulty</span>
-                    <span class="info-box-number"><?php echo $this->difficulty;?></span>
-                </div>
-            </div>      
-        </div>        
-    </div>
-    
-    <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-star"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-star"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Block Reward</span>
@@ -43,7 +30,42 @@
             </div>      
         </div>
  
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Difficulty</span>
+                    <span class="info-box-number"><?php echo $this->difficulty;?></span>
+                </div>
+            </div>      
+        </div>        
+    
+    
+    
+         <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-percent"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Pool Fee</span>
+              <span class="info-box-number"><?php echo $this->percent;?> %</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-clock-o"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Payment Interval</span>
+              <span class="info-box-number">5 minutes</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
                 <span class="info-box-icon bg-green"><i class="fa fa-bolt"></i></span>
 
@@ -52,10 +74,27 @@
                     <span class="info-box-number"><?php echo $this->hashrate;?> h/s</span>
                 </div>
             </div>      
-        </div>        
-    </div>    
+        </div>  
+        
 
-    
+
+  
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-blue"><i class="fa fa-users"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Connected Miners</span>
+              <span class="info-box-number"><?php echo $this->minercount; ?> (<?php echo $this->workercount;?> workers)</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>   
+        
+        
+        
+    </div>
     
       <div class="row">
         <div class="col-xs-12">
