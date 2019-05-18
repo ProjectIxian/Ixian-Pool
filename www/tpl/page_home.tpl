@@ -35,7 +35,7 @@
                 <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Difficulty</span>
+                    <span class="info-box-text">Pool Difficulty</span>
                     <span class="info-box-number"><?php echo $this->difficulty;?></span>
                 </div>
             </div>      

@@ -32,7 +32,7 @@
           
           <div class="small-box bg-aqua">
             <div class="inner">
-                <p>Pending Balance</p>
+                <p>Estimated Payout</p>
 
                 <h2><?php echo $this->pending;?></h2>
                 
@@ -134,7 +134,7 @@
                     <dl class="dl-horizontal">
                         <dt>Total Paid</dt>
                         <dd>Shows the sum of all payments made to this address.</dd>
-                        <dt>Pending Balance</dt>
+                        <dt>Estimated Payout</dt>
                         <dd>Shows the estimated next payment amount which will be made.</dd>
                         <dt>Total Hashrate</dt>
                         <dd>Shows the sum of all active workers hashrate.</dd>

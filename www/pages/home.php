@@ -43,15 +43,15 @@ for($i = 0; $i < $page->noticecount; $i++) {
 $page->notices=$noticesarr;
 
 
-$page->hashrate = db_fetch("SELECT sum(hashrate) as hashes FROM `workers` WHERE updated >= NOW() - INTERVAL 24 HOUR", array())[0]['hashes'];
+$page->hashrate = db_fetch("SELECT sum(hashrate) as hashes FROM `workers` WHERE updated >= NOW() - INTERVAL 15 MINUTE", array())[0]['hashes'];
 
 if($page->hashrate == "")
     $page->hashrate = 0;
 
 $page->reward = number_format(calculateRewardForBlock($blockheight),4);
 $page->percent = $poolfee * 100;
-$page->minercount = db_fetch("SELECT COUNT(*) FROM `miners` where updated >= NOW() - INTERVAL 24 HOUR", array())[0]['COUNT(*)'];
-$page->workercount = db_fetch("SELECT COUNT(*) FROM `workers` where updated >= NOW() - INTERVAL 24 HOUR", array())[0]['COUNT(*)'];
+$page->minercount = db_fetch("SELECT COUNT(*) FROM `miners` where updated >= NOW() - INTERVAL 15 MINUTE", array())[0]['COUNT(*)'];
+$page->workercount = db_fetch("SELECT COUNT(*) FROM `workers` where updated >= NOW() - INTERVAL 15 MINUTE", array())[0]['COUNT(*)'];
 
 $page->render('page_home.tpl');
 
