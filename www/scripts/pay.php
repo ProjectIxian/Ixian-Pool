@@ -32,8 +32,8 @@ if($totalshares < 1)
 
 $primarybalance = $primarybalance - $poollocked_balance;
 
-if($primarybalance < 100)
-    die("Not enough funds");
+if($primarybalance < 1000)
+    die("Not enough funds to issue payouts");
 
 $fee = $primarybalance * $poolfee;
 $primarybalance = $primarybalance - $fee;
