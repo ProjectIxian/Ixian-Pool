@@ -60,7 +60,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Payment Interval</span>
-              <span class="info-box-number">5 minutes</span>
+              <span class="info-box-number">15 minutes</span>
             </div>
           </div>
         </div>
@@ -87,9 +87,7 @@
               <span class="info-box-text">Connected Miners</span>
               <span class="info-box-number"><?php echo $this->minercount; ?> (<?php echo $this->workercount;?> workers)</span>
             </div>
-            <!-- /.info-box-content -->
           </div>
-          <!-- /.info-box -->
         </div>   
         
         
