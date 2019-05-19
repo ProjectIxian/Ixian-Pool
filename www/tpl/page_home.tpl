@@ -29,18 +29,17 @@
                 </div>
             </div>      
         </div>
- 
+     
         <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
+          <div class="info-box">
+            <span class="info-box-icon bg-blue"><i class="fa fa-users"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Pool Difficulty</span>
-                    <span class="info-box-number"><?php echo $this->difficulty;?></span>
-                </div>
-            </div>      
-        </div>        
-    
+            <div class="info-box-content">
+              <span class="info-box-text">Connected Miners</span>
+              <span class="info-box-number"><?php echo $this->minercount; ?> (<?php echo $this->workercount;?> workers)</span>
+            </div>
+          </div>
+        </div>
     
     
          <div class="col-md-4 col-sm-6 col-xs-12">
@@ -66,8 +65,30 @@
         </div>
         
         <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-database"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Payments</span>
+              <span class="info-box-number"><?php echo $this->totalpaid;?> IXI</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-bolt"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Pool Difficulty</span>
+                    <span class="info-box-number"><?php echo $this->difficulty;?></span>
+                </div>
+            </div>      
+        </div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa fa-bolt"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Pool Hashrate</span>
@@ -79,16 +100,7 @@
 
 
   
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-blue"><i class="fa fa-users"></i></span>
 
-            <div class="info-box-content">
-              <span class="info-box-text">Connected Miners</span>
-              <span class="info-box-number"><?php echo $this->minercount; ?> (<?php echo $this->workercount;?> workers)</span>
-            </div>
-          </div>
-        </div>   
         
         
         

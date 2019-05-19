@@ -53,6 +53,12 @@ $page->percent = $poolfee * 100;
 $page->minercount = db_fetch("SELECT COUNT(*) FROM `miners` where updated >= NOW() - INTERVAL 15 MINUTE", array())[0]['COUNT(*)'];
 $page->workercount = db_fetch("SELECT COUNT(*) FROM `workers` where updated >= NOW() - INTERVAL 15 MINUTE", array())[0]['COUNT(*)'];
 
+$page->totalpaid = db_fetch("SELECT sum(ixi_paid) as total FROM `miners`", array())[0]['total'];
+if($page->totalpaid == "")
+    $page->totalpaid = 0;
+$page->totalpaid = number_format($page->totalpaid, 4);
+
+
 $page->render('page_home.tpl');
 
 ?>
