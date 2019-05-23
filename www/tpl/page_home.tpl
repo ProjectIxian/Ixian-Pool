@@ -59,7 +59,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Payment Interval</span>
-              <span class="info-box-number">15 minutes</span>
+              <span class="info-box-number">1 hour</span>
             </div>
           </div>
         </div>
