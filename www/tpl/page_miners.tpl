@@ -64,6 +64,7 @@
             'lengthChange' : false,
             'info' : false,
             'ordering' : true,
+			'order': [[ 1, "desc" ]],
             'searching' : false,
             'serverSide' : true,
             'processing' : true,

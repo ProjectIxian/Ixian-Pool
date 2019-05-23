@@ -181,6 +181,7 @@
             'lengthChange' : false,
             'info' : false,
             'ordering' : true,
+			'order': [[ 0, "desc" ]],
             'searching' : true,
             'serverSide' : true,
             'processing' : true,
