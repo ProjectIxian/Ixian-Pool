@@ -48,7 +48,7 @@
           
           <div class="small-box bg-yellow">
             <div class="inner">
-                <p>Total Hashrate</p>
+                <p>Active Hashrate</p>
                 <h2><?php echo $this->hashrate;?></h2>
 
               

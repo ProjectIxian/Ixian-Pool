@@ -49,7 +49,7 @@ else
 }
 
 
-$page->hashrate = db_fetch("SELECT sum(hashrate) as hashes FROM `workers` WHERE wallet = :address AND updated >= NOW() - INTERVAL 24 HOUR", array(':address' => $addressid))[0]['hashes']." h/s";
+$page->hashrate = db_fetch("SELECT sum(hashrate) as hashes FROM `workers` WHERE wallet = :address AND updated >= NOW() - INTERVAL 5 MINUTE", array(':address' => $addressid))[0]['hashes']." h/s";
 
 if($page->hashrate == " h/s") {
     $page->hashrate = "0 h/s";
