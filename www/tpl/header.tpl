@@ -18,7 +18,7 @@
 <meta name="theme-color" content="#ffffff">
     
 <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="components/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="dist/css/AdminLTE.css">
 <link rel="stylesheet" href="dist/css/skins/skin-green-light.css">

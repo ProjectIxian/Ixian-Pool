@@ -21,7 +21,7 @@
         
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fa fa-star"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fas fa-gem"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Block Reward</span>
@@ -55,7 +55,7 @@
         
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-clock-o"></i></span>
+            <span class="info-box-icon bg-green"><i class="far fa-clock"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Payment Interval</span>
@@ -66,7 +66,7 @@
         
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-database"></i></span>
+            <span class="info-box-icon bg-green"><i class="far fa-money-bill-alt"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Total Payments</span>
@@ -77,7 +77,7 @@
         
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-chart-bar"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Pool Difficulty</span>

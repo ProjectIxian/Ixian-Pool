@@ -22,7 +22,7 @@
                 
             </div>
             <div class="icon">
-              <i class="fa fa-money"></i>
+              <i class="far fa-money-bill-alt"></i>
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@
                 
             </div>
             <div class="icon">
-              <i class="fa fa-hourglass-o"></i>
+              <i class="fas fa-hourglass-half"></i>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@
                 <h2><?php echo $this->workercount;?></h2>             
             </div>
             <div class="icon">
-              <i class="fa fa-gears"></i>
+              <i class="fas fa-cogs"></i>
             </div>
           </div>
         </div>
