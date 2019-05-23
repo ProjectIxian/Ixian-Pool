@@ -79,4 +79,6 @@ $full_uri = $prefix.$poolfee_address."_".$fee;
 $payresponse = file_get_contents($full_uri);
 $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
 
+db_fetch("DELETE FROM `nonces` WHERE `timestamp` < NOW() - INTERVAL 48 HOUR", array());
+
 ?>
