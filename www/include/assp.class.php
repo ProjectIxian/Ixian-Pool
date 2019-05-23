@@ -285,20 +285,20 @@ class SSP {
 			 $order
 			 $limit"
 		);
-		/*// Data set length after filtering
+		// Data set length after filtering
 		$resFilterLength = self::sql_exec( $db, $bindings,
 			"SELECT COUNT(`{$primaryKey}`)
 			 FROM   `$table`
 			 $where"
-		);*/
-		$recordsFiltered = 0;// $resFilterLength[0][0];
+		);
+		$recordsFiltered = $resFilterLength[0][0];
 		// Total data set length
-		/*$resTotalLength = self::sql_exec( $db, $bindings,
+		$resTotalLength = self::sql_exec( $db, $bindings,
 			"SELECT COUNT(`{$primaryKey}`)
 			 FROM   `$table` ".
 			$whereAllSql
-		);*/
-		$recordsTotal = 0;// $resTotalLength[0][0];
+		);
+		$recordsTotal = $resTotalLength[0][0];
 		/*
 		 * Output
 		 */

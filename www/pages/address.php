@@ -27,13 +27,16 @@ $active_shares = 0;
 $page->address = $addressid;
 
 db_connect();
-$page->workercount = db_fetch("SELECT COUNT(*) FROM `workers` where wallet = :address AND updated >= NOW() - INTERVAL 24 HOUR", array(':address' => $addressid))[0]['COUNT(*)'];
+$dailyworkercount = db_fetch("SELECT COUNT(*) FROM `workers` where wallet = :address AND updated >= NOW() - INTERVAL 24 HOUR", array(':address' => $addressid))[0]['COUNT(*)'];
 
-if($page->workercount == 0)
+if($dailyworkercount == 0)
 {
     $page->render('page_error.tpl');
     return;    
 }
+
+$page->workercount = db_fetch("SELECT COUNT(*) FROM `workers` where wallet = :address AND updated >= NOW() - INTERVAL 5 MINUTE", array(':address' => $addressid))[0]['COUNT(*)'];
+
 
 $miner = db_fetch("SELECT * from `miners` where address = :address LIMIT 1", array(':address' => $addressid));
 if(isset($miner[0]))
