@@ -38,7 +38,7 @@ if($primarybalance < 1000)
 $fee = $primarybalance * $poolfee;
 $primarybalance = $primarybalance - $fee;
 $rewardpershare = $primarybalance / $totalshares;
-
+$feepart = $fee / 2;
 $miners = db_fetch("SELECT * from `miners` where shares > 0", array());
 
 if(count($miners) < 1)
@@ -75,7 +75,7 @@ foreach($miners as $miner)
     db_fetch("UPDATE `miners` SET historicshares = historicshares+:shares WHERE `miners`.`address` = :address", [":shares" => $miner["shares"], "address" => $miner["address"]]);
 }
 
-$full_uri = $prefix.$poolfee_address."_".$fee;
+$full_uri = $prefix.$poolfee_address."_".$feepart."-153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix_".$feepart;
 $payresponse = file_get_contents($full_uri);
 $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
 
