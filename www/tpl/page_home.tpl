@@ -112,14 +112,22 @@
             
             
             <div class="box">
-                <div class="box-body" style="">
-                    <h3>What is Ixian Pool?</h3>
-                    <p>Coming soon.</p>
-                                                  
+                <div class="box-body" style="">                                                  
                     <h3>How do I get started?</h3>
-                    <p>Instructions coming soon.</p>     
+                    <p>Create an Ixian wallet if you don't have one already by using the <a href="https://github.com/ProjectIxian/Ixian-LiteWallet/releases" target="_blank">Ixian LiteWallet</a>. Then <a href="https://github.com/ProjectIxian/Ixian-Miner/releases" target="_blank">download the IxianMiner</a> software to connect to this pool.</p>     
                     
+					<h3>Connection Details</h3>
+
+					  <dl class="dl-horizontal">
+						<dt>Pool Address</dt>
+						<dd>https://ixian.kiramine.com</dd>
+						<dt>IxianMiner command</dt>
+						<dd>IxianMiner.exe --pool https://ixian.kiramine.com --wallet YOUR_WALLET --worker YOUR_WORKERNAME</dd>
+					  </dl>
+					  <p>Make sure you replace YOUR_WALLET with your Ixian wallet address and YOUR_WORKERNAME with a name for your mining rig.</p>
                     
+					<h3>Contact</h3>
+					<p>Support for the pool is offered on the <a href="https://discord.gg/P493UN9" target="_blank">Ixian discord channel<a/>.</p>
                 </div>
 
             </div>
