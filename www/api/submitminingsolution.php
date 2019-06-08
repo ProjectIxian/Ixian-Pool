@@ -13,8 +13,9 @@ $blocknum = $_GET['blocknum'];
 
 $wallet = $_GET['wallet'];
 $worker = $_GET['worker'];
+$symbols = array('-', '_'); 
 
-if(!ctype_alnum($wallet) || !ctype_alnum($worker) || !ctype_alnum($blocknum) || !ctype_alnum($nonce))
+if(!ctype_alnum($wallet) || !ctype_alnum(str_replace($symbols, '', $worker)) || !ctype_alnum($blocknum) || !ctype_alnum($nonce))
     api_error("Incorrect parameters");
 
 db_connect();

@@ -15,6 +15,7 @@ if(!isset($_GET['wallet']) || !isset($_GET['worker']))
 
 $wallet = $_GET['wallet'];
 $worker = $_GET['worker'];
+$symbols = array('-', '_'); 
 $id = md5($wallet.$worker);
 
 $hashrate = 0;
@@ -23,7 +24,7 @@ if(isset($_GET['hr']))
     $hashrate = $_GET['hr'];
 }
 
-if(!ctype_alnum($wallet) || !ctype_alnum($worker) || !ctype_alnum($hashrate))
+if(!ctype_alnum($wallet) || !ctype_alnum(str_replace($symbols, '', $worker)) || !ctype_alnum($hashrate))
     api_error("Incorrect parameters");
 
 db_connect();
