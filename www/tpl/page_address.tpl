@@ -1,4 +1,22 @@
+
+
 <div class="container">
+    <?php if($this->invalidaddress == true) {?>
+    <div class="row">
+        <div class="col-xs-12">
+            
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-exclamation"></i> Incorrect Wallet Address</h4>
+                Workers have been detected mining to this incorrect wallet address.<br/>
+                Payouts cannot be issued to this wallet address.<br/>
+                Make sure you type your wallet address correctly when starting the miners!
+              </div>
+            
+          </div>
+    </div>      
+    <?php } ?>
+    
     <section class="content-header" style="word-break: break-all;">
       <h1>
         <small>Wallet Address</small><br/>
@@ -11,6 +29,9 @@
         
 <section class="content container-fluid">
 
+  
+    
+    
     <div class="row">
         <div class="col-lg-3 col-sm-6 col-xs-12">
           

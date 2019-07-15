@@ -27,12 +27,21 @@ $active_shares = 0;
 $page->address = $addressid;
 
 db_connect();
+
 $dailyworkercount = db_fetch("SELECT COUNT(*) FROM `workers` where wallet = :address AND updated >= NOW() - INTERVAL 24 HOUR", array(':address' => $addressid))[0]['COUNT(*)'];
 
 if($dailyworkercount == 0)
 {
     $page->render('page_error.tpl');
     return;    
+}
+
+$page->invalidaddress = false;
+$res = file_get_contents($dlt_host."/validateaddress?address=$addressid");
+$data = json_decode($res, true);
+
+if(isset($data["error"]) || $data["result"] == "") {
+    $page->invalidaddress = true;
 }
 
 $page->workercount = db_fetch("SELECT COUNT(*) FROM `workers` where wallet = :address AND updated >= NOW() - INTERVAL 5 MINUTE", array(':address' => $addressid))[0]['COUNT(*)'];
