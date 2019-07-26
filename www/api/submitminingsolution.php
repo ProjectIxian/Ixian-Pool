@@ -11,6 +11,19 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $nonce = $_GET['nonce'];
 $blocknum = $_GET['blocknum'];
 
+
+$blockheightres = file_get_contents($dlt_host."/getblockcount");
+$blockheightdata = json_decode($blockheightres, true);
+if(isset($blockheightdata["error"]) || $blockheightdata["result"] == "") {
+    api_error("Rejected");
+}
+
+$blockheight = $blockheightdata["result"];
+if($blocknum < $blockheight - 20000)
+{
+    api_error("Rejected");
+}
+
 $wallet = $_GET['wallet'];
 $worker = $_GET['worker'];
 $symbols = array('-', '_'); 
