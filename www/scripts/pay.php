@@ -7,6 +7,17 @@
 
 include_once("../config.php");
 
+// Fetch the current node block height
+$params = "/status";
+
+$response = file_get_contents($dlt_host.$params);
+$response = json_decode($response, true, 512, JSON_BIGINT_AS_STRING);
+
+$blockheight = $response["result"]["Block Height"];
+if($blockheight == FALSE)
+    api_error("Incorrect block height");
+
+// Fetch the current node wallet
 $params = "/mywallet";
 
 $response = file_get_contents($dlt_host.$params);
@@ -22,7 +33,17 @@ if($primarybalance == FALSE)
 if($primarybalance < 10)
     api_error("Balance too low for payouts");
 
+
 db_connect();
+
+$paymentblock = db_fetch("SELECT value as bh FROM `stats` WHERE text = 'paymentblock'", array())[0]['bh'];
+
+// Require at least 10 blocks since the last payout
+if($paymentblock > $blockheight - 10)
+    api_error("Not enough blocks have passed since the last payout.");
+
+db_fetch("UPDATE `stats` SET `value` = :blockheight WHERE `stats`.`text` = 'paymentblock' ", [":blockheight" => $blockheight]);
+
 
 $totalshares = db_fetch("SELECT sum(shares) as sh FROM `miners` WHERE shares > 0", array())[0]['sh'];
 
@@ -56,9 +77,7 @@ foreach($miners as $miner)
     
     $payresponse = file_get_contents($full_uri);
     $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
-    
-    print_r($payresponse);
-    
+        
     if(isset($payresponse["error"]["code"]))
     {
         echo "Error sending to $mineraddress";
