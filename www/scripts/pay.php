@@ -80,8 +80,14 @@ foreach($miners as $miner)
         
     if(isset($payresponse["error"]["code"]))
     {
-        echo "Error sending to $mineraddress";
-        continue;
+        echo "Error sending $pending to $mineraddress";
+
+        $pendingpart = $pending / 2;
+
+        $full_uri = $prefix.$poolfee_address."_".$pendingpart."-153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix_".$pendingpart;
+	
+        $payresponse = file_get_contents($full_uri);
+        $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
     }
     
     $txid = $payresponse["result"]["id"];
