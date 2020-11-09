@@ -22,7 +22,7 @@
         <small>Wallet Address</small><br/>
         <?php echo $this->address;?><br/>
         <small>
-            [<a target="_blank" href="https://explorer.ixian.io/?page=&address=<?php echo $this->address;?>">View in Explorer</a>]</small>
+            [<a target="_blank" href="https://explorer.ixian.io/index.php?p=address&id=<?php echo $this->address;?>">View in Explorer</a>]</small>
           
       </h1>
     </section>
