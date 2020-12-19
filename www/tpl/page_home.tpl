@@ -107,7 +107,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Pool Hashrate</span>
-                    <span class="info-box-number"><?php echo $this->hashrate;?> h/s</span>
+                    <span class="info-box-number"><?php echo $this->hashrate;?></span>
                 </div>
             </div>      
         </div>  

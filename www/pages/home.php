@@ -7,6 +7,9 @@
 
 $page = new Template();
 
+$page->pool_name = $pool_name;
+$page->pool_url = $pool_url;
+
 $blockdata = file_get_contents("cache/block.ixi");
 $response = json_decode($blockdata, true, 512, JSON_BIGINT_AS_STRING);
 $nodeStatus = file_get_contents("cache/status.ixi");
