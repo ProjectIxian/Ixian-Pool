@@ -7,12 +7,17 @@
 
 include_once("../config.php");
 
+$cache_file = "../cache/block.ixi";
+$status_file = "../cache/status.ixi";
+
+$status = file_get_contents($dlt_host."/status");
+file_put_contents($status_file, $status);
+$status = json_decode($status_response, true, 512, JSON_BIGINT_AS_STRING);
+
 $params = "/getminingblock?algo=0";
 
 $response = file_get_contents($dlt_host.$params);
 $response = json_decode($response, true, 512, JSON_BIGINT_AS_STRING);
-
-$cache_file = "../cache/block.ixi";
 
 $num = $response["result"]["num"];
 $version = $response["result"]["ver"];

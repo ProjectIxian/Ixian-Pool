@@ -9,12 +9,20 @@ $page = new Template();
 
 $blockdata = file_get_contents("cache/block.ixi");
 $response = json_decode($blockdata, true, 512, JSON_BIGINT_AS_STRING);
+$nodeStatus = file_get_contetns("cache/status.ixi");
+$nodeStatus = json_decode($nodeStatus, true, 512, JSON_BIGINT_AS_STRING);
 
 $blockheight = "0";
+$page->nodeBlockHeight = "0";
 $page->blockheight = "0";
 $page->difficulty = "0";
 $page->reward = "0";
 $page->hashrate = "0";
+
+if(isset($nodeStatus["Block Height"]))
+{
+	$page->nodeBlockHeight = number_format($nodeStatus["Block Height"]);
+}
 
 if(isset($response["result"]))
 {
@@ -47,7 +55,7 @@ $page->hashrate = db_fetch("SELECT sum(hashrate) as hashes FROM `workers` WHERE 
 
 if($page->hashrate == "")
     $page->hashrate = 0;
-$page->hashrate = number_format($page->hashrate, 0);
+$page->hashrate = humanNumber(number_format($page->hashrate, 0))."h/s";
 $page->reward = number_format(calculateRewardForBlock($blockheight),4);
 $page->percent = $poolfee * 100;
 $page->minercount = db_fetch("SELECT COUNT(*) FROM `miners` where updated >= NOW() - INTERVAL 15 MINUTE", array())[0]['COUNT(*)'];

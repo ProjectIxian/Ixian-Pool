@@ -13,8 +13,24 @@
                 <span class="info-box-icon bg-blue"><i class="fa fa-th"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Block Height</span>
-                    <span class="info-box-number"><?php echo $this->blockheight;?></span>
+                    <span class="info-box-text">Currently mining block</span>
+                    <span class="info-box-number">
+						<?php echo $this->blockheight;?><br/>
+						Node block height: <?php echo $this->nodeBlockHeight; ?>
+					</span>
+                </div>
+            </div>      
+        </div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa fa-th"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Node block height</span>
+                    <span class="info-box-number">
+						<?php echo $this->nodeBlockHeight; ?>
+					</span>
                 </div>
             </div>      
         </div>
