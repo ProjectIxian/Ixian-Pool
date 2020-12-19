@@ -15,8 +15,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Currently mining block</span>
                     <span class="info-box-number">
-						<?php echo $this->blockheight;?><br/>
-						Node block height: <?php echo $this->nodeBlockHeight; ?>
+						<?php echo $this->blockheight;?>
 					</span>
                 </div>
             </div>      

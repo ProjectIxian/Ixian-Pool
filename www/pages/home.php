@@ -9,7 +9,7 @@ $page = new Template();
 
 $blockdata = file_get_contents("cache/block.ixi");
 $response = json_decode($blockdata, true, 512, JSON_BIGINT_AS_STRING);
-$nodeStatus = file_get_contetns("cache/status.ixi");
+$nodeStatus = file_get_contents("cache/status.ixi");
 $nodeStatus = json_decode($nodeStatus, true, 512, JSON_BIGINT_AS_STRING);
 
 $blockheight = "0";

@@ -12,7 +12,7 @@ $status_file = "../cache/status.ixi";
 
 $status = file_get_contents($dlt_host."/status");
 file_put_contents($status_file, $status);
-$status = json_decode($status_response, true, 512, JSON_BIGINT_AS_STRING);
+$status = json_decode($status, true, 512, JSON_BIGINT_AS_STRING);
 
 $params = "/getminingblock?algo=0";
 
