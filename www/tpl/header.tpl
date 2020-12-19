@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Ixian Mining Pool</title>
+<title><?php echo $pool_name; ?></title>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <meta name="description" content="Ixian mining pool">
 <meta name="keywords" content="ixian, ixian mining, cryptocurrency">
@@ -43,7 +43,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.php" class="navbar-brand"><b>ixian</b>pool</a>
+          <a href="index.php" class="navbar-brand"><?php echo $pool_name; ?></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>

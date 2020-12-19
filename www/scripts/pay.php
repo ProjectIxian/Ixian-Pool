@@ -7,6 +7,8 @@
 
 include_once("../config.php");
 
+$ixianFoundationAddress = "153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix";
+
 // Fetch the current node block height
 $params = "/status";
 
@@ -84,7 +86,7 @@ foreach($miners as $miner)
 
         $pendingpart = $pending / 2;
 
-        $full_uri = $prefix.$poolfee_address."_".$pendingpart."-153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix_".$pendingpart;
+        $full_uri = $prefix.$poolfee_address."_".$pendingpart."-".$ixianFoundationAddress."_".$pendingpart;
 	
         $payresponse = file_get_contents($full_uri);
         $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
@@ -100,7 +102,7 @@ foreach($miners as $miner)
     db_fetch("UPDATE `miners` SET historicshares = historicshares+:shares WHERE `miners`.`address` = :address", [":shares" => $miner["shares"], "address" => $miner["address"]]);
 }
 
-$full_uri = $prefix.$poolfee_address."_".$feepart."-153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix_".$feepart;
+$full_uri = $prefix.$poolfee_address."_".$feepart."-".$ixianFoundationAddress."_".$feepart;
 $payresponse = file_get_contents($full_uri);
 $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
 

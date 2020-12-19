@@ -133,14 +133,26 @@
                     
 					<h3>Connection Details</h3>
 
+					
+					<h4>Official CPU only miner</h4>
+
 					  <dl class="dl-horizontal">
 						<dt>Pool Address</dt>
-						<dd>https://ixian.kiramine.com</dd>
+						<dd><?php echo $pool_url; ?></dd>
 						<dt>IxianMiner command</dt>
-						<dd>IxianMiner.exe --pool https://ixian.kiramine.com --wallet YOUR_WALLET --worker YOUR_WORKERNAME</dd>
+						<dd>IxianMiner.exe --pool <?php echo $pool_url; ?> --wallet YOUR_WALLET --worker YOUR_WORKERNAME</dd>
 					  </dl>
 					  <p>Make sure you replace YOUR_WALLET with your Ixian wallet address and YOUR_WORKERNAME with a name for your mining rig.</p>
+					  
+					<h4>Failover Configuration</h4>
+					  
+					<p>To add a second IxianPool as Failover, simply add --pool2 "FAILOVER POOL ADDRESS" to your IxianMiner command. For example: --pool2 https://ixian.kiramine.com</p>
                     
+					<h4>GPU Miner made by Bogdanadnan</h4>
+					
+					<p>The latest release of Bogdanadnan's Ixian GPU miner for AMD and NVIDIA cards and Linux as Windows build you will find here <a href="https://github.com/bogdanadnan/iximiner/releases" target="_blank">AMD/NVIDIA GPU Miner</a></p>
+					<p>You will also find there all necessary informations on how to set it up</p>
+					
 					<h3>Contact</h3>
 					<p>Support for the pool is offered on the <a href="https://discord.gg/P493UN9" target="_blank">Ixian discord channel<a/>.</p>
                 </div>

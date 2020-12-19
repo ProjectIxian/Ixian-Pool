@@ -19,9 +19,9 @@ $page->difficulty = "0";
 $page->reward = "0";
 $page->hashrate = "0";
 
-if(isset($nodeStatus["Block Height"]))
+if(isset($nodeStatus["result"]["Block Height"]))
 {
-	$page->nodeBlockHeight = number_format($nodeStatus["Block Height"]);
+	$page->nodeBlockHeight = number_format($nodeStatus["result"]["Block Height"]);
 }
 
 if(isset($response["result"]))
