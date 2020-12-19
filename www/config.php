@@ -15,8 +15,8 @@ $db_name = "ixian"; // Database name
 $dlt_host = "http://localhost:8081"; // DLT Node that the pool connects to
 
 // Pool configuration
-$pool_name = "My Ixian Pool" // Pool name
-$pool_url = "http://my-ixian-pool.com" // This pool's URL
+$pool_name = "My Ixian Pool"; // Pool name
+$pool_url = "http://my-ixian-pool.com"; // This pool's URL
 
 // Pool fee configuration
 $poolfee = 0.02; // Percent of funds the pool keeps on every payout (defaults to 2%)

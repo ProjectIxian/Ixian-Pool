@@ -138,9 +138,9 @@
 
 					  <dl class="dl-horizontal">
 						<dt>Pool Address</dt>
-						<dd><?php echo $pool_url; ?></dd>
+						<dd><?php echo $this->pool_url; ?></dd>
 						<dt>IxianMiner command</dt>
-						<dd>IxianMiner.exe --pool <?php echo $pool_url; ?> --wallet YOUR_WALLET --worker YOUR_WORKERNAME</dd>
+						<dd>IxianMiner.exe --pool <?php echo $this->pool_url; ?> --wallet YOUR_WALLET --worker YOUR_WORKERNAME</dd>
 					  </dl>
 					  <p>Make sure you replace YOUR_WALLET with your Ixian wallet address and YOUR_WORKERNAME with a name for your mining rig.</p>
 					  

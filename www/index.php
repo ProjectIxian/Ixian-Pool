@@ -22,6 +22,9 @@ if(isset($_GET['p']))
 
 $page = new Template();
 
+$page->pool_name = $pool_name;
+$page->pool_url = $pool_url;
+
 $page->cpage = $current_page;
 
 $page->render('header.tpl'); 
