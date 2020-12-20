@@ -14,7 +14,7 @@ $status = file_get_contents($dlt_host."/status");
 file_put_contents($status_file, $status);
 $status = json_decode($status, true, 512, JSON_BIGINT_AS_STRING);
 
-$params = "/getminingblock?algo=0";
+$params = "/getminingblock?algo=1";
 
 $response = file_get_contents($dlt_host.$params);
 $response = json_decode($response, true, 512, JSON_BIGINT_AS_STRING);
