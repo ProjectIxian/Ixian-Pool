@@ -38,20 +38,20 @@ function humanTiming ($time)
     }
 }
 
-function humanNumber($num)
+function humanNumber($num, $decimals = 2)
 {
 	if($num >= 1000000000000)
 	{
-		return number_format($num/1000000000000, 0)." T";
+		return number_format($num/1000000000000, $decimals)." T";
 	}else if($num >= 1000000000)
 	{
-		return number_format($num/1000000000, 0)." G";
+		return number_format($num/1000000000, $decimals)." G";
 	}else if($num >= 1000000)
 	{
-		return number_format($num/1000000, 0)." M";
+		return number_format($num/1000000, $decimals)." M";
 	}else if($num >= 1000)
 	{
-		return number_format($num/1000, 0)." K";
+		return number_format($num/1000, $decimals)." K";
 	}
 	return number_format($num, 0);
 }
