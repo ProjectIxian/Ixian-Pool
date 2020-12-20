@@ -7,7 +7,7 @@
       <a href="#"><b>ixian</b>pool</a>
     </div>
     <a href="https://ixian.io">ixian.io</a> | <a href="https://discord.gg/P493UN9">discord</a> | <a href="https://twitter.com/ixian_IO">twitter</a> | 
-	<a href="https://www.reddit.com/r/ixian">reddit</a> | <a href="https://github.com/ProjectIxian/Ixian-source">github</a>
+	<a href="https://www.reddit.com/r/ixian">reddit</a> | <a href="https://github.com/ProjectIxian/">github</a>
 
   </footer>
 
