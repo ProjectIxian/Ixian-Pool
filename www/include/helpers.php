@@ -42,17 +42,18 @@ function humanNumber($num)
 {
 	if($num >= 1000000000000)
 	{
-		return ($num/1000000000000)." T";
+		return number_format($num/1000000000000, 0)." T";
 	}else if($num >= 1000000000)
 	{
-		return ($num/1000000000)." G";
+		return number_format($num/1000000000, 0)." G";
 	}else if($num >= 1000000)
 	{
-		return ($num/1000000)." M";
+		return number_format($num/1000000, 0)." M";
 	}else if($num >= 1000)
 	{
-		return ($num/1000)." K";
+		return number_format($num/1000, 0)." K";
 	}
+	return number_format($num, 0);
 }
 
 function calculateRewardForBlock($blockNum)

@@ -58,7 +58,7 @@ $page->hashrate = db_fetch("SELECT sum(hashrate) as hashes FROM `workers` WHERE 
 
 if($page->hashrate == "")
     $page->hashrate = 0;
-$page->hashrate = humanNumber(number_format($page->hashrate, 0))."h/s";
+$page->hashrate = humanNumber($page->hashrate)."h/s";
 $page->reward = number_format(calculateRewardForBlock($blockheight),4);
 $page->percent = $poolfee * 100;
 $page->minercount = db_fetch("SELECT COUNT(*) FROM `miners` where updated >= NOW() - INTERVAL 15 MINUTE", array())[0]['COUNT(*)'];
