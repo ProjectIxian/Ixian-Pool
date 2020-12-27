@@ -8,7 +8,7 @@ Discover Ixian in the main repository here: https://github.com/ProjectIxian
 ## Requirements
 A typical LAMP/WAMP/MAMP setup is needed for proper functionality.
 Development tests were done with the following software versions:
-- Apache 2.4
+- Apache 2.4 (with mod_rewrite)
 - Mariadb 10.1
 - PHP 7.2
 
@@ -19,9 +19,9 @@ The pool operator needs to run an IxianDLT node for the pool to connect to. The 
 1. Create SQL database and import the included pool.sql file
 ```
 mysql -e "CREATE DATABASE ixian"
-mysql -e "CREATE USER 'ixian'@'localhost' IDENTIFIED BY 'ixian'"
+mysql -e "CREATE USER 'ixian'@'localhost' IDENTIFIED BY 'myPassword'"
 mysql -e "GRANT ALL PRIVILEGES ON ixian.* TO 'ixian'@'localhost'"
-mysql ixian < /opt/Ixian/Ixian-Pool/pool.sql
+mysql ixian < pool.sql
 ```
 
 2. Edit config.php and set the parameters as required, most important parameters are:
@@ -29,7 +29,7 @@ mysql ixian < /opt/Ixian/Ixian-Pool/pool.sql
 // Database configuration
 $db_host = "127.0.0.1"; // Database host
 $db_user = "ixian"; // Database username
-$db_pass = "ixian"; // Database password
+$db_pass = "myPassword"; // Database password
 $db_name = "ixian"; // Database name
 
 // Ixian Node configuration
