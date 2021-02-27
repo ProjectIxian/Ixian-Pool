@@ -121,7 +121,8 @@
                     <p>
                         You'll need an Ixian Wallet Address and Ixian mining software.<br/>
                         The fastest way to get the wallet address is by using <a href="https://www.spixi.io" target="_blank">Spixi</a> or <a href="https://github.com/ProjectIxian/Ixian-LiteWallet/releases" target="_blank">Ixian LiteWallet</a>.<br/>
-                        You can choose most suitable mining software for you below. If you're new, we recommend using IxiWatt Easy Miner.
+                        <strong>Remember to backup your wallet!</strong><br/>
+                        You can choose most suitable mining software for you below. If you're new, we recommend using IxiWatt Easy Miner.<br/>
                     </p>
                     
                     <strong>Pool Address: </strong><?php echo $this->pool_url; ?><br/>
