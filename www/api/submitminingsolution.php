@@ -53,7 +53,6 @@ if($blockheight != $blocknum) {
     api_error("Invalid blocknum");
 }
 
-
 $res = file_get_contents($dlt_host."/verifyminingsolution?nonce=$nonce&blocknum=$blocknum&diff=$difficulty");
 $data = json_decode($res, true);
 
@@ -63,12 +62,21 @@ if(isset($data["error"]) || $data["result"] == "") {
 
 $share = 1;
 
+db_fetch("LOCK TABLES nonces WRITE, miners WRITE", []);
+
+$chk = db_fetch("SELECT count(1) FROM nonces WHERE nonce=:nonce", [":nonce" => $nonce])[0]['count(1)'];
+if ($chk != 0) {
+    db_fetch("UNLOCK TABLES", []);
+    api_error("Duplicate nonce");
+}
+
 db_fetch("INSERT IGNORE into nonces SET nonce=:nonce", [":nonce" => $nonce]);
 
 db_fetch("INSERT INTO miners SET address=:id, shares=shares+:sh, updated=CURRENT_TIMESTAMP ON DUPLICATE KEY UPDATE shares=shares+:sh2, updated=CURRENT_TIMESTAMP",
             [":id" => $wallet, ":sh" => $share, ":sh2" => $share]
         );
 
+db_fetch("UNLOCK TABLES", []);
 
 $res = file_get_contents($dlt_host."/submitminingsolution?nonce=$nonce&blocknum=$blocknum");
 $data = json_decode($res, true);
