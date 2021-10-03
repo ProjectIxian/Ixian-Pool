@@ -15,6 +15,7 @@ $blocknum = $_GET['blocknum'];
 $blockheightres = file_get_contents($dlt_host."/getblockcount");
 $blockheightdata = json_decode($blockheightres, true);
 if(isset($blockheightdata["error"]) || $blockheightdata["result"] == "") {
+    db_fetch("INSERT INTO `abuse` (`miner`, `nonce`) VALUES (:wallet, :nonce)", [":wallet" => $wallet, ":nonce" => $nonce]);
     api_error("Rejected");
 }
 
@@ -66,6 +67,7 @@ db_fetch("LOCK TABLES nonces WRITE, miners WRITE", []);
 
 $chk = db_fetch("SELECT count(1) FROM nonces WHERE nonce=:nonce", [":nonce" => $nonce])[0]['count(1)'];
 if ($chk != 0) {
+    db_fetch("INSERT INTO `abuse` (`miner`, `nonce`) VALUES (:wallet, :nonce)", [":wallet" => $wallet, ":nonce" => $nonce]);
     db_fetch("UNLOCK TABLES", []);
     api_error("Duplicate nonce");
 }
