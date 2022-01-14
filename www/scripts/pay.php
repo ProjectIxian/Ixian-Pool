@@ -7,7 +7,7 @@
 
 include_once("../config.php");
 
-$ixianFoundationAddress = "153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix";
+$ixianFoundationAddress = "3S5BbQtZyJUDwaSiEdyit8FEij75TrhmLmmRUJkG5W3RjEHAnybe2Z1JqzVWZBy3d";
 
 // Fetch the current node block height
 $params = "/status";
@@ -74,7 +74,9 @@ foreach($miners as $miner)
 {
     $mineraddress = $miner["address"];
     $pending = $rewardpershare * $miner["shares"];
-    
+    if($pending < 0)
+        continue;
+	
     $full_uri = $prefix.$mineraddress."_".$pending;
     
     $payresponse = file_get_contents($full_uri);

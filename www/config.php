@@ -15,12 +15,12 @@ $db_name = "ixian"; // Database name
 $dlt_host = "http://localhost:8081"; // DLT Node that the pool connects to
 
 // Pool configuration
-$pool_name = "My <b>Ixian</b> Pool"; // Pool name
+$pool_name = "My Ixian Pool"; // Pool name
 $pool_url = "http://my-ixian-pool.com"; // This pool's URL
 
 // Pool fee configuration
 $poolfee = 0.02; // Percent of funds the pool keeps on every payout (defaults to 2%)
-$poolfee_address = "153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix"; // Address that collects the pool fees (defaults to Ixian foundation address)
+$poolfee_address = "3S5BbQtZyJUDwaSiEdyit8FEij75TrhmLmmRUJkG5W3RjEHAnybe2Z1JqzVWZBy3d"; // Address that collects the pool fees (defaults to Ixian foundation address)
 
 // Pool difficulty configuration
 $pooldifficulty_reduction = -15; // Value between -1 and -15. The lower the value, the higher the number of average shares per miner

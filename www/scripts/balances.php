@@ -43,6 +43,8 @@ $miners = db_fetch("SELECT * from `miners` where shares > 0", array());
 foreach($miners as $miner)
 {
     $pending = $rewardpershare * $miner["shares"];
+	if($pending < 0)
+        $pending = 0;
     db_fetch("UPDATE `miners` SET `ixi_pending` = :pending WHERE `miners`.`address` = :address", [":pending" => $pending, "address" => $miner["address"]]);
 }
 
