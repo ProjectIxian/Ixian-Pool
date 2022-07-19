@@ -20,14 +20,26 @@ if($primarybalance == FALSE)
     api_error("Incorrect balance");
 
 if($primarybalance < 10)
-    api_error("Balance too low for payouts");
+    api_error("Balance too low for estimates");
+
+// Fetch the current node block height
+$params = "/status";
+
+$response = file_get_contents($dlt_host.$params);
+$response = json_decode($response, true, 512, JSON_BIGINT_AS_STRING);
+
+$blockheight = $response["result"]["Block Height"];
+if($blockheight == FALSE)
+    api_error("Incorrect block height");
+
 
 db_connect();
 
-$totalshares = db_fetch("SELECT sum(shares) as sh FROM `miners` WHERE shares > 0", array())[0]['sh'];
+$totalshares = db_fetch("SELECT sum(shares) as sh FROM `pending_payments` WHERE `block` >= :blk", 
+array(":blk" => $blockheight - 120))[0]['sh'];
 
 if($totalshares < 1)
-    api_error("Not enough shares to issue payouts");
+    api_error("Not enough shares to estimate payouts");
 
 echo "Total shares: $totalshares | ";
 
@@ -43,8 +55,6 @@ $miners = db_fetch("SELECT * from `miners` where shares > 0", array());
 foreach($miners as $miner)
 {
     $pending = $rewardpershare * $miner["shares"];
-	if($pending < 0)
-        $pending = 0;
     db_fetch("UPDATE `miners` SET `ixi_pending` = :pending WHERE `miners`.`address` = :address", [":pending" => $pending, "address" => $miner["address"]]);
 }
 

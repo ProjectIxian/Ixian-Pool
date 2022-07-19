@@ -7,7 +7,7 @@
 
 include_once("../config.php");
 
-$ixianFoundationAddress = "3S5BbQtZyJUDwaSiEdyit8FEij75TrhmLmmRUJkG5W3RjEHAnybe2Z1JqzVWZBy3d";
+$ixianFoundationAddress = "153xXfVi1sznPcRqJur8tutgrZecNVYGSzetp47bQvRfNuDix";
 
 // Fetch the current node block height
 $params = "/status";
@@ -19,95 +19,113 @@ $blockheight = $response["result"]["Block Height"];
 if($blockheight == FALSE)
     api_error("Incorrect block height");
 
-// Fetch the current node wallet
-$params = "/mywallet";
+db_connect();
 
+// Stage 1: store share count for payment distribution after last block maturity
+$totalshares = db_fetch("SELECT sum(shares) as sh FROM `miners` WHERE shares > 0", array())[0]['sh'];
+if($totalshares > 0)
+{
+    $miners = db_fetch("SELECT * from `miners` where shares > 0", array());
+
+    if(count($miners) < 1)
+        die("No miners to pay");
+
+    $paymentblock = $blockheight + 960;
+    db_fetch("DELETE FROM `pending_payments` WHERE `block` = :pblk", array(":pblk" => $paymentblock));
+    
+    foreach($miners as $miner)
+    {
+        $mineraddress = $miner["address"];
+        $pending = $miner["shares"];
+
+        if($pending > 0)
+        {
+            db_fetch("INSERT INTO `pending_payments` (`block`, `shares`, `miner`) VALUES (:blk, :shares, :miner)",
+        [":blk" => $paymentblock, ":shares" => $pending, ":miner" => $miner["address"]]);
+
+            db_fetch("UPDATE `miners` SET shares = :shares WHERE `miners`.`address` = :address", [":shares" => "0", "address" => $miner["address"]]);
+            db_fetch("UPDATE `miners` SET historicshares = historicshares+:shares WHERE `miners`.`address` = :address", [":shares" => $miner["shares"], "address" => $miner["address"]]);
+        }
+    }
+}
+
+
+// Stage 2: fetch the node balance and perform checks
+$params = "/mywallet";
 $response = file_get_contents($dlt_host.$params);
 $response = json_decode($response, true, 512, JSON_BIGINT_AS_STRING);
-
 if(!isset($response["result"]))
     api_error("Can't retrieve balance");
-
 $primarybalance = reset($response["result"]);
 if($primarybalance == FALSE)
     api_error("Incorrect balance");
-
 if($primarybalance < 10)
     api_error("Balance too low for payouts");
-
-
-db_connect();
-
 $paymentblock = db_fetch("SELECT value as bh FROM `stats` WHERE text = 'paymentblock'", array())[0]['bh'];
-
 // Require at least 10 blocks since the last payout
 if($paymentblock > $blockheight - 10)
     api_error("Not enough blocks have passed since the last payout.");
-
 db_fetch("UPDATE `stats` SET `value` = :blockheight WHERE `stats`.`text` = 'paymentblock' ", [":blockheight" => $blockheight]);
 
-
-$totalshares = db_fetch("SELECT sum(shares) as sh FROM `miners` WHERE shares > 0", array())[0]['sh'];
-
-if($totalshares < 1)
-    api_error("Not enough shares to issue payouts");
-
-
 $primarybalance = $primarybalance - $poollocked_balance;
-
-if($primarybalance < 1000)
+if($primarybalance < 100)
     die("Not enough funds to issue payouts");
-
 $fee = $primarybalance * $poolfee;
 $primarybalance = $primarybalance - $fee;
-$rewardpershare = $primarybalance / $totalshares;
 $feepart = $fee / 2;
-$miners = db_fetch("SELECT * from `miners` where shares > 0", array());
 
-if(count($miners) < 1)
-    die("No miners to pay");
-
-$prefix = $dlt_host."/addtransaction?to=";
-$full_uri = $prefix;
-
-foreach($miners as $miner)
+// Stage 3: send payments for shares once blocks reach maturity
+$totalpendingshares = db_fetch("SELECT sum(shares) as sh FROM `pending_payments` WHERE `block` >= :blk", 
+array(":blk" => $blockheight))[0]['sh'];
+if($totalpendingshares > 0)
 {
-    $mineraddress = $miner["address"];
-    $pending = $rewardpershare * $miner["shares"];
-    if($pending < 0)
-        continue;
-	
-    $full_uri = $prefix.$mineraddress."_".$pending;
+    $rewardpershare = $primarybalance / $totalpendingshares;
+
+    $pendingminers = db_fetch("SELECT * from `pending_payments` WHERE `block` <= :blk", 
+    array(":blk" => $blockheight));
+
+    if(count($pendingminers) < 1)
+        die("No miners to pay");
     
-    $payresponse = file_get_contents($full_uri);
-    $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
-        
-    if(isset($payresponse["error"]["code"]))
+    $prefix = $dlt_host."/addtransaction?to=";
+    $full_uri = $prefix;
+
+    foreach($pendingminers as $miner)
     {
-        echo "Error sending $pending to $mineraddress";
+        $mineraddress = $miner["miner"];
+        $pending = $rewardpershare * $miner["shares"];
 
-        $pendingpart = $pending / 2;
+        $full_uri = $prefix.$mineraddress."_".$pending;
 
-        $full_uri = $prefix.$poolfee_address."_".$pendingpart."-".$ixianFoundationAddress."_".$pendingpart;
-	
         $payresponse = file_get_contents($full_uri);
         $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
+        
+        if(isset($payresponse["error"]["code"]))
+        {
+            echo "Error sending $pending to $mineraddress";
+    
+            $pendingpart = $pending / 2;
+            $full_uri = $prefix.$poolfee_address."_".$pendingpart."-".$ixianFoundationAddress."_".$pendingpart;
+        
+            $payresponse = file_get_contents($full_uri);
+            $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
+        }
+        $txid = $payresponse["result"]["id"];
+
+        db_fetch("INSERT INTO `payments` (`address`, `amount`, `txid`) VALUES (:address, :amount, :txid)", [":address" => $mineraddress, ":amount" => $pending, ":txid" => $txid]);
+
+        db_fetch("UPDATE `miners` SET ixi_pending = :pending WHERE `miners`.`address` = :address", [":pending" => "0", "address" => $mineraddress]);
+        db_fetch("UPDATE `miners` SET ixi_paid = ixi_paid+:pending WHERE `miners`.`address` = :address", [":pending" => $pending, "address" => $mineraddress]);
+
+        db_fetch("DELETE FROM `pending_payments` WHERE `pending_payments`.`id` = :pid", [":pid" => $miner["id"]]);
     }
-    
-    $txid = $payresponse["result"]["id"];
-    
-    db_fetch("INSERT INTO `payments` (`address`, `amount`, `txid`) VALUES (:address, :amount, :txid)", [":address" => $miner["address"], ":amount" => $pending, ":txid" => $txid]);
-    
-    db_fetch("UPDATE `miners` SET ixi_pending = :pending WHERE `miners`.`address` = :address", [":pending" => "0", "address" => $miner["address"]]);
-    db_fetch("UPDATE `miners` SET ixi_paid = ixi_paid+:pending WHERE `miners`.`address` = :address", [":pending" => $pending, "address" => $miner["address"]]);
-    db_fetch("UPDATE `miners` SET shares = :shares WHERE `miners`.`address` = :address", [":shares" => "0", "address" => $miner["address"]]);
-    db_fetch("UPDATE `miners` SET historicshares = historicshares+:shares WHERE `miners`.`address` = :address", [":shares" => $miner["shares"], "address" => $miner["address"]]);
+
+    $full_uri = $prefix.$poolfee_address."_".$feepart."-".$ixianFoundationAddress."_".$feepart;
+    $payresponse = file_get_contents($full_uri);
+    $payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
 }
 
-$full_uri = $prefix.$poolfee_address."_".$feepart."-".$ixianFoundationAddress."_".$feepart;
-$payresponse = file_get_contents($full_uri);
-$payresponse = json_decode($payresponse, true, 512, JSON_BIGINT_AS_STRING);
-
+// Stage 4: remove old nonces
 db_fetch("DELETE FROM `nonces` WHERE `timestamp` < NOW() - INTERVAL 48 HOUR", array());
 
 ?>

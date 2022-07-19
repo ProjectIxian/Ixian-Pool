@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 17, 2020 at 10:29 PM
--- Server version: 10.1.44-MariaDB-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.6
+-- Host: 127.0.0.1
+-- Generation Time: Jul 19, 2022 at 11:11 AM
+-- Server version: 10.5.11-MariaDB
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -31,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `abuse` (
   `miner` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nonce` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -46,7 +45,7 @@ CREATE TABLE `blocks` (
   `diff` text COLLATE utf8_unicode_ci NOT NULL,
   `checksum` text COLLATE utf8_unicode_ci NOT NULL,
   `address` text COLLATE utf8_unicode_ci NOT NULL,
-  `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `added` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -57,11 +56,11 @@ CREATE TABLE `blocks` (
 
 CREATE TABLE `miners` (
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `shares` bigint(20) NOT NULL DEFAULT '0',
-  `historicshares` bigint(20) NOT NULL DEFAULT '0',
-  `ixi_pending` decimal(20,8) NOT NULL DEFAULT '0.00000000',
-  `ixi_paid` decimal(20,8) NOT NULL DEFAULT '0.00000000'
+  `updated` timestamp NOT NULL DEFAULT current_timestamp(),
+  `shares` bigint(20) NOT NULL DEFAULT 0,
+  `historicshares` bigint(20) NOT NULL DEFAULT 0,
+  `ixi_pending` decimal(20,8) NOT NULL DEFAULT 0.00000000,
+  `ixi_paid` decimal(20,8) NOT NULL DEFAULT 0.00000000
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -72,7 +71,7 @@ CREATE TABLE `miners` (
 
 CREATE TABLE `nonces` (
   `nonce` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -84,17 +83,10 @@ CREATE TABLE `nonces` (
 CREATE TABLE `notices` (
   `id` int(11) NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `warning` tinyint(1) NOT NULL DEFAULT '0',
-  `visible` tinyint(1) NOT NULL DEFAULT '0'
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `warning` tinyint(1) NOT NULL DEFAULT 0,
+  `visible` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `notices`
---
-
-INSERT INTO `notices` (`id`, `message`, `date`, `warning`, `visible`) VALUES
-(1, '<p>Sample notice</p>', '2020-07-28 10:37:40', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -107,8 +99,21 @@ CREATE TABLE `payments` (
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `amount` decimal(20,8) NOT NULL,
   `txid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pending_payments`
+--
+
+CREATE TABLE `pending_payments` (
+  `id` int(11) NOT NULL,
+  `block` bigint(20) NOT NULL,
+  `shares` bigint(20) NOT NULL,
+  `miner` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -122,13 +127,6 @@ CREATE TABLE `stats` (
   `value` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `stats`
---
-
-INSERT INTO `stats` (`id`, `text`, `value`) VALUES
-(1, 'paymentblock', '1');
-
 -- --------------------------------------------------------
 
 --
@@ -140,7 +138,7 @@ CREATE TABLE `workers` (
   `name` text COLLATE utf8_unicode_ci NOT NULL,
   `wallet` text COLLATE utf8_unicode_ci NOT NULL,
   `hashrate` int(11) NOT NULL,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -185,6 +183,12 @@ ALTER TABLE `payments`
   ADD KEY `address` (`address`);
 
 --
+-- Indexes for table `pending_payments`
+--
+ALTER TABLE `pending_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `stats`
 --
 ALTER TABLE `stats`
@@ -204,7 +208,7 @@ ALTER TABLE `workers`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -213,10 +217,16 @@ ALTER TABLE `payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `pending_payments`
+--
+ALTER TABLE `pending_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `stats`
 --
 ALTER TABLE `stats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -74,7 +74,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Payment Interval</span>
-              <span class="info-box-number">1 hour</span>
+              <span class="info-box-number">1 hour after reward maturity</span>
             </div>
           </div>
         </div>
@@ -149,7 +149,11 @@
 
                     <p>Latest release of Bogdan Adnan's Ixian miner and instructions can be found on <a href="https://github.com/bogdanadnan/iximiner/releases" target="_blank">https://github.com/bogdanadnan/iximiner/releases</a>.</p>
                     <br/>
-                    
+
+                    <h3>When are payments sent?</h3>
+                    <p>Beginning with the Ixian Omega consensus upgrade, all miner rewards require <b>960 blocks</b> (aprox <b>8 hours</b>) to mature and be accepted before they are credited to the pool wallet.<br/>
+                      The pool sends payments to miners every hour for all rewards that have matured.</p>
+
                     <h3>Contact</h3>
                     <p>Support for the pool is offered on the <a href="https://discord.gg/P493UN9" target="_blank">Ixian discord channel</a>.</p>
                 </div>
