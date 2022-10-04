@@ -103,7 +103,7 @@
             <h3 class="box-title">Workers</h3>
           </div>
           <div class="box-body">
-            <div class="box-body" style="height: 250px;">
+            <div class="table-responsive">            
               <table id="tworkers" class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -127,7 +127,7 @@
             <h3 class="box-title">Payments</h3>
           </div>
           <div class="box-body">
-            <div class="box-body" style="height: 350px;">
+            <div class="table-responsive">
               <table id="tpayments" class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -149,7 +149,7 @@
          
       <div class="row">            
             <div class="box">
-                <div class="box-body" style="">
+                <div class="box-body">
                     <h3></h3>
                     
                     <dl class="dl-horizontal">

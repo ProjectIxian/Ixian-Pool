@@ -13,7 +13,7 @@
             <h3 class="box-title">Miners</h3>
           </div>
           <div class="box-body">
-            <div class="box-body" style="height: 250px;">
+            <div class="table-responsive">
               <table id="tminers" class="table table-bordered table-hover" style="word-break: break-all;">
                 <thead>
                 <tr>

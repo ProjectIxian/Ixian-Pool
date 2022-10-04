@@ -35,6 +35,13 @@ require( '../include/assp.class.php' );
 $ret = 	SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, null, $where);
 $data = &$ret["data"];
 
+foreach($data as &$payment)
+{
+    $txid = $payment[2];
+    $txid = "<a href='https://explorer.ixian.io/index.php?p=transaction&id=$txid'>$txid</a>";
+    $payment[2] = $txid;
+}
+
 echo json_encode($ret);
 
 ?>
